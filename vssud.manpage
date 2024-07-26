@@ -1,0 +1,53 @@
+.TH VSSUD 8 "July 2024" "0.1" "Very Simple Single User Daemon"
+.SH NAME
+vssud \- A script to manage and restart multiple shell scripts as daemon processes.
+
+.SH SYNOPSIS
+.B vssud
+.SH DESCRIPTION
+.B vssud
+is a shell script designed to manage and ensure the continuous operation of multiple shell scripts located in a specified directory. If any of the managed scripts terminate, this script will automatically restart them.
+
+.SH USAGE
+Place your shell scripts in the directory named
+.BR ./service .
+Then execute the
+.B init.sh
+script to start and manage all the scripts in that directory.
+
+.SH OPTIONS
+None.
+
+.SH FILES
+.BR ./service/ 
+Directory containing the shell scripts to be managed.
+
+.SH EXAMPLES
+To use the script, follow these steps:
+.RS
+.nf
+$ mkdir service
+$ echo -e '#!/bin/bash\necho "Script 1 running"\nsleep 10' > service/script1.sh
+$ echo -e '#!/bin/bash\necho "Script 2 running"\nsleep 15' > service/script2.sh
+$ chmod +x service/script1.sh service/script2.sh
+$ ./init.sh
+.fi
+.RE
+
+.SH SIGNALS
+.BR SIGINT
+and
+.BR SIGTERM
+are trapped by the script to ensure that all managed processes are terminated when the script is interrupted.
+
+.SH EXIT STATUS
+The script will exit with status 0 upon receiving a termination signal and successfully terminating all child processes.
+
+.SH AUTHOR
+Written by OpenAI's ChatGPT and jjjttwkr.
+
+.SH BUGS
+No known bugs. Report any issues to script's authors.
+
+.SH COPYRIGHT
+This is free and unencumbered software released into the public domain.
